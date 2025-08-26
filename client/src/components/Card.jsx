@@ -6,19 +6,18 @@ import ActionButton from "./ActionButton";
 
 // Pastel color palette
 const pastelColors = [
-  "bg-yellow-50", // Original yellow
-  "bg-pink-50", // Soft pink
-  "bg-blue-50", // Light blue
-  "bg-green-50", // Mint green
-  "bg-purple-50", // Lavender
-  "bg-orange-50", // Peach
-  "bg-indigo-50", // Soft indigo
-  "bg-rose-50", // Rose
-  "bg-cyan-50", // Light cyan
-  "bg-emerald-50", // Soft emerald
+  "bg-yellow-50",
+  "bg-pink-50",
+  "bg-blue-50",
+  "bg-green-50",
+  "bg-purple-50",
+  "bg-orange-50",
+  "bg-indigo-50",
+  "bg-rose-50",
+  "bg-cyan-50",
+  "bg-emerald-50",
 ];
 
-// Function to get consistent color based on card ID
 const getCardColor = (id) => {
   const hash = id.split("").reduce((a, b) => {
     a = (a << 5) - a + b.charCodeAt(0);
@@ -51,25 +50,31 @@ export default function Card({
       onSwipeLeft={onSwipeLeft}
       onSwipeRight={onSwipeRight}
       isActive={showActions}
-      className={`relative w-full ${cardColor} rounded-2xl shadow-xl px-5 py-5 flex flex-col`}
-      style={{ minHeight: "500px", height: "298px" }}
+      className={`w-full max-w-[360px] ${cardColor} rounded-2xl shadow-xl px-5 py-5 flex flex-col`}
+      style={{
+        height: "clamp(320px, 60vh, 450px)", // Responsive height
+        maxHeight: "80%",
+      }}
     >
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-3">
         <UserBadge avatar={publisherAvatar} name={author} />
         <span className="bg-red-500 text-white text-xs px-3 py-0.5 rounded-full font-bold shadow-sm">
           LIVE
         </span>
       </div>
-      <div className="flex-1">
-        <h2 className="text-[1.05rem] font-extrabold text-gray-900 leading-tight mb-1">
+
+      <div className="flex-1 flex flex-col">
+        <h2 className="text-lg font-extrabold text-gray-900 leading-tight mb-2">
           {title}
         </h2>
-        <p className="text-gray-800 text-[0.97rem] mb-2">{summary}</p>
+        <p className="text-gray-800 text-sm mb-3 line-clamp-3 flex-1">
+          {summary}
+        </p>
         {!!image && (
           <img
             src={image}
             alt="news"
-            className="w-full h-[70px] rounded-lg object-cover border border-gray-100 bg-gray-100"
+            className="w-full h-[80px] rounded-lg object-cover border border-gray-100 bg-gray-100 mb-3"
             onError={(e) => {
               e.target.onerror = null;
               e.target.src =
@@ -80,10 +85,10 @@ export default function Card({
       </div>
 
       {/* Bottom row with time and action buttons */}
-      <div className="flex items-center justify-between mt-2">
+      <div className="flex items-center justify-between mt-auto">
         <span className="text-xs text-gray-600">{time}</span>
 
-        {/* Action buttons - properly aligned inside the card */}
+        {/* Action buttons */}
         {showActions && (
           <div className="flex gap-3">
             <ActionButton

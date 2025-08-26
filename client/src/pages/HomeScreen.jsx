@@ -47,6 +47,8 @@ export default function HomeScreen({ onNavigate }) {
   return (
     <AppShell>
       <Header title="News" />
+
+      {/* Category Pills */}
       <div className="flex px-6 pt-2 pb-4 gap-2 overflow-x-auto scrollbar-hide">
         {categories.map((cat) => (
           <Tag
@@ -58,9 +60,9 @@ export default function HomeScreen({ onNavigate }) {
         ))}
       </div>
 
-      {/* ----- Card stack area - Properly centered ----- */}
-      <div className="flex-1 flex items-center justify-center px-4 pb-28 pt-8">
-        <div className="relative w-full max-w-[380px]">
+      {/* Card Area - Takes full remaining space */}
+      <div className="flex-1 flex items-center justify-center px-4 pb-[90px]">
+        <div className="relative w-full max-w-[380px] h-full flex items-center justify-center">
           {stackCards.length === 0 ? (
             <div className="text-gray-400 text-center text-lg">
               No more news!
@@ -93,6 +95,7 @@ export default function HomeScreen({ onNavigate }) {
           )}
         </div>
       </div>
+
       <BottomNav activeIndex={0} onNavigate={handleNavigation} />
     </AppShell>
   );
