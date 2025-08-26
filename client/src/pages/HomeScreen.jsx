@@ -41,7 +41,7 @@ export default function HomeScreen({ onNavigate, onOpenNews }) {
       <Header title="News" />
 
       {/* Category Pills */}
-      <div className="flex px-6 pt-2 pb-3 gap-2 overflow-x-auto scrollbar-hide flex-shrink-0">
+      <div className="flex justify-evenly px-4 pt-2 pb-5 items-center w-full">
         {categories.map((cat) => (
           <Tag
             key={cat}

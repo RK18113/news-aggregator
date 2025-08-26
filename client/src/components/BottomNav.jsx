@@ -86,10 +86,10 @@ export default function BottomNav({ activeIndex, onNavigate }) {
       const buttonRect = buttonRefs.current[index].getBoundingClientRect();
       const containerRect = containerRef.current.getBoundingClientRect();
 
-      // Add some padding to make the pill bigger than the button
-      const paddingX = 8; // Extra padding on sides
+      // Minimal padding to touch the border
+      const paddingX = 2; // Reduced from 8 to 2
       const left = buttonRect.left - containerRect.left - paddingX;
-      const width = buttonRect.width + (paddingX * 2);
+      const width = buttonRect.width + paddingX * 2;
 
       setPillPos({ left, width });
       setIsInitialized(true);
@@ -115,10 +115,10 @@ export default function BottomNav({ activeIndex, onNavigate }) {
 
   return (
     <nav
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-black border-amber-300 border-2 rounded-full px-8 py-3 shadow-2xl flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px]"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-black border-amber-300 border-2 rounded-full px-3 py-2 shadow-2xl flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px]"
       ref={containerRef}
     >
-      {/* Animated pill - Made bigger */}
+      {/* Animated pill - Reduced spacing */}
       {isInitialized && (
         <div
           style={{
@@ -129,7 +129,7 @@ export default function BottomNav({ activeIndex, onNavigate }) {
         />
       )}
 
-      {/* Navigation buttons - Better aligned icons */}
+      {/* Navigation buttons - Reduced padding */}
       {navs.map((nav, idx) => {
         const isActive = activeIndex === idx;
 
@@ -138,7 +138,7 @@ export default function BottomNav({ activeIndex, onNavigate }) {
             key={idx}
             ref={(el) => (buttonRefs.current[idx] = el)}
             onClick={() => onNavigate(idx)}
-            className="nav-btn focus:outline-none relative z-10 px-5 py-4 flex items-center justify-center transition-colors duration-300 hover:scale-105 active:scale-95 rounded-full"
+            className="nav-btn focus:outline-none relative z-10 px-4 py-4 flex items-center justify-center transition-colors duration-300 hover:scale-105 active:scale-95 rounded-full"
           >
             <div
               className={`transition-colors duration-300 flex items-center justify-center ${
