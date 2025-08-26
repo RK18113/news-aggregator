@@ -61,8 +61,8 @@ export default function HomeScreen({ onNavigate }) {
       </div>
 
       {/* Card Area - Takes full remaining space */}
-      <div className="flex-1 flex items-center justify-center px-4 pb-[90px]">
-        <div className="relative w-full max-w-[380px] h-full flex items-center justify-center">
+      <div className="flex-1 flex items-start sm:items-center justify-center px-4 pb-[90px]">
+        <div className="relative w-full max-w-[380px] h-full flex items-stretch justify-center">
           {stackCards.length === 0 ? (
             <div className="text-gray-400 text-center text-lg">
               No more news!
@@ -71,7 +71,7 @@ export default function HomeScreen({ onNavigate }) {
             stackCards.map((news, idx) => (
               <div
                 key={news.id}
-                className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+                className="absolute inset-0 flex items-stretch justify-center transition-all duration-300"
                 style={{
                   transform: `translateY(${idx * 8}px) scale(${
                     1 - idx * 0.03
