@@ -1,8 +1,8 @@
-// src/components/BottomNav.jsx
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 const navs = [
   {
+    label: "Home",
     icon: (
       <svg
         width="28"
@@ -12,12 +12,12 @@ const navs = [
         fill="none"
         viewBox="0 0 24 24"
       >
-        <path d="M3 12l9-9 9 9" />
-        <path d="M9 21V9h6v12" />
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
       </svg>
     ),
   },
   {
+    label: "Bookmark",
     icon: (
       <svg
         width="28"
@@ -27,11 +27,16 @@ const navs = [
         fill="none"
         viewBox="0 0 24 24"
       >
-        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 5v16l7-7 7 7V5a2 2 0 00-2-2H7a2 2 0 00-2 2z"
+        />
       </svg>
     ),
   },
   {
+    label: "Scan",
     icon: (
       <svg
         width="28"
@@ -41,12 +46,15 @@ const navs = [
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        <rect x="4" y="4" width="6" height="6" rx="2" />
+        <rect x="14" y="4" width="6" height="6" rx="2" />
+        <rect x="4" y="14" width="6" height="6" rx="2" />
+        <rect x="14" y="14" width="6" height="6" rx="2" />
       </svg>
     ),
   },
   {
+    label: "Profile",
     icon: (
       <svg
         width="28"
@@ -56,37 +64,92 @@ const navs = [
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle cx="12" cy="7" r="4" />
-        <path d="M5.5 21a9 9 0 0113 0" />
+        <circle cx="12" cy="8" r="4" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"
+        />
       </svg>
     ),
   },
 ];
 
 export default function BottomNav({ activeIndex, onNavigate }) {
+  const containerRef = useRef(null);
+  const buttonRefs = useRef([]);
+  const [pillPos, setPillPos] = useState({ left: 0, width: 0 });
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const updatePillPosition = (index) => {
+    if (buttonRefs.current[index] && containerRef.current) {
+      const buttonRect = buttonRefs.current[index].getBoundingClientRect();
+      const containerRect = containerRef.current.getBoundingClientRect();
+
+      // Add some padding to make the pill bigger than the button
+      const paddingX = 8; // Extra padding on sides
+      const left = buttonRect.left - containerRect.left - paddingX;
+      const width = buttonRect.width + (paddingX * 2);
+
+      setPillPos({ left, width });
+      setIsInitialized(true);
+    }
+  };
+
+  useEffect(() => {
+    if (activeIndex !== undefined) {
+      updatePillPosition(activeIndex);
+    }
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (activeIndex !== undefined) {
+        updatePillPosition(activeIndex);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [activeIndex]);
+
   return (
     <nav
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94vw] max-w-[390px] md:max-w-[480px] lg:max-w-[580px] xl:max-w-[660px] h-[65px]
-        bg-white shadow-2xl rounded-[32px] flex items-center justify-around px-3 border"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-black border-amber-300 border-2 rounded-full px-8 py-3 shadow-2xl flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px]"
+      ref={containerRef}
     >
-      {navs.map((nav, idx) => (
-        <button
-          key={idx}
-          onClick={() => onNavigate(idx)}
-          className="focus:outline-none"
-        >
-          <div
-            className={`flex items-center justify-center rounded-full w-12 h-12 
-            transition-all ${
-              activeIndex === idx
-                ? "bg-yellow-400 text-white shadow-lg"
-                : "bg-gray-100 text-gray-400"
-            }`}
+      {/* Animated pill - Made bigger */}
+      {isInitialized && (
+        <div
+          style={{
+            left: `${pillPos.left}px`,
+            width: `${pillPos.width}px`,
+          }}
+          className="absolute top-1/2 -translate-y-1/2 h-14 bg-yellow-400 rounded-full transition-all duration-500 ease-out z-0 shadow-md"
+        />
+      )}
+
+      {/* Navigation buttons - Better aligned icons */}
+      {navs.map((nav, idx) => {
+        const isActive = activeIndex === idx;
+
+        return (
+          <button
+            key={idx}
+            ref={(el) => (buttonRefs.current[idx] = el)}
+            onClick={() => onNavigate(idx)}
+            className="nav-btn focus:outline-none relative z-10 px-5 py-4 flex items-center justify-center transition-colors duration-300 hover:scale-105 active:scale-95 rounded-full"
           >
-            {nav.icon}
-          </div>
-        </button>
-      ))}
+            <div
+              className={`transition-colors duration-300 flex items-center justify-center ${
+                isActive ? "text-black" : "text-white hover:text-gray-300"
+              }`}
+            >
+              {nav.icon}
+            </div>
+          </button>
+        );
+      })}
     </nav>
   );
 }

@@ -134,10 +134,8 @@ export default function SwipeableCard({
       {/* Enhanced swipe indicators */}
       {isActive && Math.abs(currentPos.x) > 50 && (
         <div
-          className={`absolute top-1/2 -translate-y-1/2 text-6xl font-bold pointer-events-none z-20
-          ${
-            currentPos.x > 0 ? "right-8 text-green-400" : "left-8 text-red-400"
-          }`}
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-9xl font-bold pointer-events-none z-20
+    ${currentPos.x > 0 ? "text-green-400" : "text-red-400"}`}
           style={{
             textShadow:
               currentPos.x > 0
