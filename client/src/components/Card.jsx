@@ -52,7 +52,7 @@ export default function Card({
       isActive={showActions}
       className={`w-full ${cardColor} rounded-2xl shadow-xl px-5 py-5 flex flex-col`}
       style={{
-        height: "380px", // Fixed height - no variation
+        height: "440px", // Increased from 380px to 440px
         width: "100%",
         maxWidth: "360px",
       }}
@@ -68,22 +68,22 @@ export default function Card({
         </span>
       </div>
 
-      {/* Title - Fixed space */}
-      <div className="mb-2" style={{ height: "50px" }}>
+      {/* Title - More space */}
+      <div className="mb-3" style={{ height: "60px" }}>
         <h2 className="text-lg font-extrabold text-gray-900 leading-tight line-clamp-2">
           {title}
         </h2>
       </div>
 
-      {/* Summary text - Fixed space */}
-      <div className="mb-3" style={{ height: "84px" }}>
-        <p className="text-gray-800 text-sm leading-relaxed line-clamp-4">
+      {/* Summary text - More space */}
+      <div className="mb-5" style={{ height: "120px" }}>
+        <p className="text-gray-800 text-sm leading-relaxed line-clamp-6">
           {summary}
         </p>
       </div>
 
-      {/* Image - Fixed space */}
-      <div className="mb-3" style={{ height: "80px" }}>
+      {/* Image - Slightly larger */}
+      <div className="mb-3" style={{ height: "90px" }}>
         {image ? (
           <img
             src={image}
@@ -92,7 +92,7 @@ export default function Card({
             onError={(e) => {
               e.target.onerror = null;
               e.target.src =
-                "https://dummyimage.com/350x80/e2e8f0/aaaaaa&text=No+image";
+                "https://dummyimage.com/350x90/e2e8f0/aaaaaa&text=No+image";
             }}
           />
         ) : (

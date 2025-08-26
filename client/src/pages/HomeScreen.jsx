@@ -60,11 +60,11 @@ export default function HomeScreen({ onNavigate }) {
         ))}
       </div>
 
-      {/* Card Area - Fixed container size */}
-      <div className="flex-grow flex justify-center items-center pt-4 pb-[110px]">
+      {/* Card Area - Taller container, less spacing */}
+      <div className="flex-grow flex justify-center items-start pt-2 pb-[100px]">
         <div
           className="relative w-full max-w-[380px]"
-          style={{ height: "420px" }}
+          style={{ height: "480px" }}
         >
           {stackCards.length === 0 ? (
             <div className="text-gray-400 text-center text-lg flex items-center justify-center h-full">
