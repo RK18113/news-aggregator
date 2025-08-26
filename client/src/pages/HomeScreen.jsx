@@ -1,4 +1,3 @@
-// src/pages/HomeScreen.jsx
 import React, { useState } from "react";
 import AppShell from "../components/AppShell";
 import Header from "../components/Header";
@@ -9,7 +8,7 @@ import { newsData } from "../data/newsData";
 
 const categories = ["Trending", "Health", "Sports", "Finance"];
 
-export default function HomeScreen({ onNavigate }) {
+export default function HomeScreen({ onNavigate, onOpenNews }) {
   const [activeCategory, setCategory] = useState("Trending");
   const [cards, setCards] = useState(newsData);
 
@@ -19,13 +18,9 @@ export default function HomeScreen({ onNavigate }) {
   const maxStack = 3;
   const stackCards = filtered.slice(0, maxStack);
 
-  // Remove top card on swipe
   const handleSwipeLeft = () => setCards((prev) => prev.slice(1));
-  const handleSwipeRight = () => {
-    setCards((prev) => prev.slice(1));
-  };
+  const handleSwipeRight = () => setCards((prev) => prev.slice(1));
 
-  // Card actions
   const handleLike = (id) =>
     setCards((prev) =>
       prev.map((n) => (n.id === id ? { ...n, liked: !n.liked } : n))
@@ -36,12 +31,9 @@ export default function HomeScreen({ onNavigate }) {
     );
   const handleShare = (id) => alert("Share: " + id);
 
-  // Handle navigation from BottomNav
   const handleNavigation = (index) => {
     const pages = ["home", "bookmarks", "search", "profile"];
-    if (onNavigate) {
-      onNavigate(pages[index]);
-    }
+    if (onNavigate) onNavigate(pages[index]);
   };
 
   return (
@@ -60,8 +52,8 @@ export default function HomeScreen({ onNavigate }) {
         ))}
       </div>
 
-      {/* Card Area - Taller container, less spacing */}
-      <div className="flex-grow flex justify-center items-start pt-2 pb-[100px]">
+      {/* Cards Stack */}
+      <div className="flex-grow flex justify-center items-center pt-2 pb-[100px]">
         <div
           className="relative w-full max-w-[380px]"
           style={{ height: "480px" }}
@@ -85,6 +77,7 @@ export default function HomeScreen({ onNavigate }) {
                   width: "100%",
                   maxWidth: "360px",
                 }}
+                onClick={() => idx === 0 && onOpenNews && onOpenNews(news)}
               >
                 <Card
                   {...news}

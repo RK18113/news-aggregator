@@ -50,9 +50,9 @@ export default function Card({
       onSwipeLeft={onSwipeLeft}
       onSwipeRight={onSwipeRight}
       isActive={showActions}
-      className={`w-full ${cardColor} rounded-2xl shadow-xl px-5 py-5 flex flex-col`}
+      className={`w-full ${cardColor} rounded-2xl shadow-xl px-5 py-5 flex flex-col cursor-pointer`}
       style={{
-        height: "440px", // Increased from 380px to 440px
+        height: "440px",
         width: "100%",
         maxWidth: "360px",
       }}
