@@ -53,7 +53,7 @@ export default function HomeScreen({ onNavigate, onOpenNews }) {
       </div>
 
       {/* Cards Stack */}
-      <div className="flex-grow flex justify-center items-center pt-2 pb-[100px]">
+      <div className="flex-grow flex justify-center items-start pt-2 pb-[100px]">
         <div
           className="relative w-full max-w-[380px]"
           style={{ height: "480px" }}
