@@ -49,7 +49,7 @@ export default function HomeScreen({ onNavigate }) {
       <Header title="News" />
 
       {/* Category Pills */}
-      <div className="flex px-6 pt-2 pb-4 gap-2 overflow-x-auto scrollbar-hide">
+      <div className="flex px-6 pt-2 pb-3 gap-2 overflow-x-auto scrollbar-hide flex-shrink-0">
         {categories.map((cat) => (
           <Tag
             key={cat}
@@ -60,25 +60,30 @@ export default function HomeScreen({ onNavigate }) {
         ))}
       </div>
 
-      {/* Card Area - Takes full remaining space */}
-      <div className="flex-1 flex items-start sm:items-center justify-center px-4 pb-[90px]">
-        <div className="relative w-full max-w-[380px] h-full flex items-stretch justify-center">
+      {/* Card Area - Fixed container size */}
+      <div className="flex-grow flex justify-center items-center pt-4 pb-[110px]">
+        <div
+          className="relative w-full max-w-[380px]"
+          style={{ height: "420px" }}
+        >
           {stackCards.length === 0 ? (
-            <div className="text-gray-400 text-center text-lg">
+            <div className="text-gray-400 text-center text-lg flex items-center justify-center h-full">
               No more news!
             </div>
           ) : (
             stackCards.map((news, idx) => (
               <div
                 key={news.id}
-                className="absolute inset-0 flex items-stretch justify-center transition-all duration-300"
+                className="absolute transition-all duration-300"
                 style={{
-                  transform: `translateY(${idx * 8}px) scale(${
-                    1 - idx * 0.03
-                  })`,
+                  left: "50%",
+                  top: `${idx * 25}px`,
+                  transform: `translateX(-50%) scale(${1 - idx * 0.06})`,
                   zIndex: maxStack - idx,
-                  opacity: idx === 0 ? 1 : 0.9 - idx * 0.1,
+                  opacity: idx === 0 ? 1 : 0.8 - idx * 0.15,
                   pointerEvents: idx === 0 ? "auto" : "none",
+                  width: "100%",
+                  maxWidth: "360px",
                 }}
               >
                 <Card
