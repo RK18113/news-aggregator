@@ -86,7 +86,6 @@ export default function BottomNav({ activeIndex, onNavigate }) {
       const buttonRect = buttonRefs.current[index].getBoundingClientRect();
       const containerRect = containerRef.current.getBoundingClientRect();
 
-      // Center the pill exactly on the button
       const left = buttonRect.left - containerRect.left;
       const width = buttonRect.width;
 
@@ -114,7 +113,7 @@ export default function BottomNav({ activeIndex, onNavigate }) {
 
   return (
     <nav
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-black border-amber-300 border-2 rounded-full px-3 py-2 shadow-2xl flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px]"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-black/50 backdrop-blur-lg border-amber-300 border-2 rounded-full px-3 py-2 flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px] shadow-[0_0_25px_rgba(252,211,77,0.5)]"
       ref={containerRef}
     >
       {/* Animated pill */}
@@ -128,7 +127,7 @@ export default function BottomNav({ activeIndex, onNavigate }) {
         />
       )}
 
-      {/* Navigation buttons - Equal flex distribution */}
+      {/* Navigation buttons */}
       {navs.map((nav, idx) => {
         const isActive = activeIndex === idx;
 
