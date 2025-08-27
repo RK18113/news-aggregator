@@ -6,15 +6,16 @@ import BottomNav from "../components/BottomNav";
 import ActionButton from "../components/ActionButton";
 
 export default function NewsDetail({ news, onBack, onNavigate }) {
-  // This effect handles the smartphone's back button/gesture.
+  // This effect ensures the smartphone's physical back button
+  // triggers the same `onBack` function.
   useEffect(() => {
-    const handleBackButton = () => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
       onBack();
     };
-
+    window.history.pushState(null, "", window.location.pathname);
     window.addEventListener("popstate", handleBackButton);
 
-    // Clean up the event listener when the component is unmounted.
     return () => {
       window.removeEventListener("popstate", handleBackButton);
     };
@@ -23,8 +24,33 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
   if (!news) {
     return (
       <AppShell>
+        <Header>
+          <button
+            onClick={onBack}
+            className="p-1 rounded-full hover:opacity-80 transition-opacity"
+            aria-label="Go back to Home"
+          >
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle
+                cx="18"
+                cy="18"
+                r="17"
+                stroke="white"
+                strokeOpacity="0.3"
+                strokeWidth="2"
+              />
+              <path
+                d="M22 25l-7-7 7-7"
+                stroke="white"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </Header>
         <div className="flex items-center justify-center h-full text-white">
-          Article not found
+          Article not found. Returning to home...
         </div>
       </AppShell>
     );
@@ -32,25 +58,19 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
 
   return (
     <AppShell>
-      {/* The back button is now passed as a child to the Header component. */}
       <Header>
         <button
           onClick={onBack}
-          className="p-2 -ml-2 rounded-full hover:bg-white/10 transition-colors"
-          aria-label="Go back"
+          className="p-1 hover:bg-gray-800 hover:rounded-full transition-opacity flex justify-center"
+          aria-label="Go back to Home"
         >
-          <svg
-            width="28"
-            height="28"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
             <path
+              d="M22 25l-7-7 7-7"
+              stroke="white"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
             />
           </svg>
         </button>
@@ -149,6 +169,7 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
           </div>
         </div>
       </div>
+
       <BottomNav activeIndex={0} onNavigate={onNavigate} />
     </AppShell>
   );

@@ -24,16 +24,7 @@ export default function Bookmarks({ onNavigate }) {
 
   return (
     <AppShell>
-      <Header title="Saved News">
-        <button
-          onClick={() => onNavigate("home")}
-          className="p-2 rounded-full hover:bg-white/10 transition-colors"
-        >
-          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-      </Header>
+      <Header title="Saved News"></Header>
 
       {/* Search Bar */}
       <SearchBar

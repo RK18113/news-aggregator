@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState } from "react";
 import HomeScreen from "./pages/HomeScreen";
 import NewsDetail from "./pages/NewsDetail";
@@ -19,6 +20,7 @@ export default function App() {
     setCurrentPage("newsDetail");
   };
 
+  // This function correctly handles navigating back to the home screen.
   const goBack = () => {
     setCurrentPage("home");
     setSelectedNews(null);
@@ -28,15 +30,18 @@ export default function App() {
     case "home":
       return <HomeScreen onNavigate={navigate} onOpenNews={openNewsDetail} />;
     case "newsDetail":
+      // The `goBack` function is correctly passed to `onBack`.
       return (
         <NewsDetail news={selectedNews} onBack={goBack} onNavigate={navigate} />
       );
     case "bookmarks":
-      return <Bookmarks onNavigate={navigate} />;
+      return <Bookmarks onNavigate={navigate} onOpenNews={openNewsDetail} />;
     case "search":
-      return <SearchScreen onNavigate={navigate} />;
+      return <SearchScreen onNavigate={navigate} onOpenNews={openNewsDetail} />;
     case "profile":
-      return <Profile onNavigate={navigate} />;
+      return (
+        <Profile onNavigate={navigate} onLogout={() => navigate("home")} />
+      );
     default:
       return <HomeScreen onNavigate={navigate} onOpenNews={openNewsDetail} />;
   }

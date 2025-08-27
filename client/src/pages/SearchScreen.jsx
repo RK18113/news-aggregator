@@ -16,13 +16,6 @@ export default function SearchScreen({ onNavigate }) {
   return (
     <AppShell>
       <Header title="Search">
-        <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-            <circle cx="12" cy="5" r="2" />
-            <circle cx="12" cy="12" r="2" />
-            <circle cx="12" cy="19" r="2" />
-          </svg>
-        </button>
       </Header>
 
       {/* Search Bar */}

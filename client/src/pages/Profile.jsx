@@ -54,16 +54,7 @@ export default function Profile({ onNavigate, onLogout }) {
 
   return (
     <AppShell>
-      <Header title="Profile">
-        <button
-          onClick={() => onNavigate("home")}
-          className="p-1 rounded-full hover:bg-white/10 transition-colors"
-        >
-          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-      </Header>
+      <Header title="Profile"></Header>
 
       {/* Scrollable content with proper bottom spacing for floating navbar */}
       <div className="flex-1 overflow-y-auto pb-28">
