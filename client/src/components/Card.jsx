@@ -68,22 +68,8 @@ export default function Card({
         </span>
       </div>
 
-      {/* Title - More space */}
-      <div className="mb-3" style={{ height: "60px" }}>
-        <h2 className="text-lg font-extrabold text-gray-900 leading-tight line-clamp-2">
-          {title}
-        </h2>
-      </div>
-
-      {/* Summary text - More space */}
-      <div className="mb-5" style={{ height: "120px" }}>
-        <p className="text-gray-800 text-sm leading-relaxed line-clamp-6">
-          {summary}
-        </p>
-      </div>
-
-      {/* Image - Slightly larger */}
-      <div className="mb-3" style={{ height: "90px" }}>
+      {/* Image First - Larger and more prominent */}
+      <div className="mb-4" style={{ height: "120px" }}>
         {image ? (
           <img
             src={image}
@@ -92,12 +78,39 @@ export default function Card({
             onError={(e) => {
               e.target.onerror = null;
               e.target.src =
-                "https://dummyimage.com/350x90/e2e8f0/aaaaaa&text=No+image";
+                "https://dummyimage.com/350x120/e2e8f0/aaaaaa&text=No+image";
             }}
           />
         ) : (
-          <div className="w-full h-full rounded-lg bg-gray-100 border border-gray-200"></div>
+          <div className="w-full h-full rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center">
+            <svg
+              width="48"
+              height="48"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              className="text-gray-400"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21,15 16,10 5,21" />
+            </svg>
+          </div>
         )}
+      </div>
+
+      {/* Title - After image */}
+      <div className="mb-3" style={{ height: "50px" }}>
+        <h2 className="text-lg font-extrabold text-gray-900 leading-tight line-clamp-2">
+          {title}
+        </h2>
+      </div>
+
+      {/* Summary text - After title */}
+      <div className="mb-4 flex-1" style={{ minHeight: "80px" }}>
+        <p className="text-gray-800 text-sm leading-relaxed line-clamp-4">
+          {summary}
+        </p>
       </div>
 
       {/* Bottom row - Fixed space */}
