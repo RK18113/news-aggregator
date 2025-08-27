@@ -112,42 +112,49 @@ export default function BottomNav({ activeIndex, onNavigate }) {
   }, [activeIndex]);
 
   return (
-    <nav
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-black/50 backdrop-blur-lg border-amber-300 border-2 rounded-full px-3 py-2 flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px] shadow-[0_0_25px_rgba(252,211,77,0.5)]"
-      ref={containerRef}
-    >
-      {/* Animated pill */}
-      {isInitialized && (
-        <div
-          style={{
-            left: `${pillPos.left}px`,
-            width: `${pillPos.width}px`,
-          }}
-          className="absolute top-1/2 -translate-y-1/2 h-14 bg-yellow-400 rounded-full transition-all duration-500 ease-out z-0 shadow-md"
-        />
-      )}
+    // This container holds the blur layer and the nav bar
+    <div className="fixed bottom-0 left-0 right-0 h-45 flex justify-center items-end z-50 pointer-events-none">
+      {/* Gradient Blur Layer with a smooth vertical fade */}
+      <div className="absolute inset-0 backdrop-blur-md [mask-image:linear-gradient(to_top,black_25%,transparent_100%)]"></div>
 
-      {/* Navigation buttons */}
-      {navs.map((nav, idx) => {
-        const isActive = activeIndex === idx;
+      {/* The actual Navigation Bar */}
+      <nav
+        className="relative pointer-events-auto mb-6 z-40 bg-black/80 border-amber-300 border-2 rounded-full px-3 py-2 flex items-center justify-between max-w-[420px] w-[90vw] min-w-[340px] shadow-[0_0_25px_rgba(252,211,77,0.5)]"
+        ref={containerRef}
+      >
+        {/* Animated pill */}
+        {isInitialized && (
+          <div
+            style={{
+              left: `${pillPos.left}px`,
+              width: `${pillPos.width}px`,
+            }}
+            className="absolute top-1/2 -translate-y-1/2 h-14 bg-yellow-400 rounded-full transition-all duration-500 ease-out z-0 shadow-md"
+          />
+        )}
 
-        return (
-          <button
-            key={idx}
-            ref={(el) => (buttonRefs.current[idx] = el)}
-            onClick={() => onNavigate(idx)}
-            className="nav-btn focus:outline-none relative z-10 flex-1 py-4 flex items-center justify-center transition-colors duration-300 hover:scale-105 active:scale-95 rounded-full"
-          >
-            <div
-              className={`transition-colors duration-300 flex items-center justify-center ${
-                isActive ? "text-black" : "text-white hover:text-gray-300"
-              }`}
+        {/* Navigation buttons */}
+        {navs.map((nav, idx) => {
+          const isActive = activeIndex === idx;
+
+          return (
+            <button
+              key={idx}
+              ref={(el) => (buttonRefs.current[idx] = el)}
+              onClick={() => onNavigate(idx)}
+              className="nav-btn focus:outline-none relative z-10 flex-1 py-4 flex items-center justify-center transition-colors duration-300 hover:scale-105 active:scale-95 rounded-full"
             >
-              {nav.icon}
-            </div>
-          </button>
-        );
-      })}
-    </nav>
+              <div
+                className={`transition-colors duration-300 flex items-center justify-center ${
+                  isActive ? "text-black" : "text-white hover:text-gray-300"
+                }`}
+              >
+                {nav.icon}
+              </div>
+            </button>
+          );
+        })}
+      </nav>
+    </div>
   );
 }
