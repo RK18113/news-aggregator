@@ -4,10 +4,9 @@ import AppShell from "../components/AppShell";
 import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
 import ActionButton from "../components/ActionButton";
+import ChatSection from "../components/ChatSection";
 
 export default function NewsDetail({ news, onBack, onNavigate }) {
-  // This effect ensures the smartphone's physical back button
-  // triggers the same `onBack` function.
   useEffect(() => {
     const handleBackButton = (event) => {
       event.preventDefault();
@@ -15,13 +14,13 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
     };
     window.history.pushState(null, "", window.location.pathname);
     window.addEventListener("popstate", handleBackButton);
-
     return () => {
       window.removeEventListener("popstate", handleBackButton);
     };
   }, [onBack]);
 
   if (!news) {
+    // ... (no change here)
     return (
       <AppShell>
         <Header>
@@ -76,8 +75,10 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
         </button>
       </Header>
 
-      <div className="flex-1 overflow-y-auto pb-24">
+      {/* Increased padding-bottom from pb-24 to pb-40 */}
+      <div className="flex-1 overflow-y-auto pb-40">
         <div className="px-4 py-2">
+          {/* Article content */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <img
@@ -120,7 +121,9 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
           <div className="text-gray-300 text-base leading-relaxed space-y-4 mb-6 break-words">
             <p>{news.summary}</p>
           </div>
-          <div className="flex items-center justify-between py-4 border-t border-gray-700">
+
+          {/* Action buttons */}
+          <div className="flex items-center justify-between">
             <span className="text-gray-400 text-sm">{news.time}</span>
             <div className="flex gap-4">
               <ActionButton
@@ -167,6 +170,9 @@ export default function NewsDetail({ news, onBack, onNavigate }) {
               />
             </div>
           </div>
+
+          {/* Chat Section */}
+          <ChatSection news={news} />
         </div>
       </div>
 
