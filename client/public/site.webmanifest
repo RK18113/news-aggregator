@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "AI News Aggregator",
+  "short_name": "AI News",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
